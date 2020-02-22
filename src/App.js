@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import uuid from "uuid";
-import "bootstrap/dist/css/bootstrap.min.css";
-import ToDoList from "./components/ToDoList";
-import ToDoInput from "./components/ToDoInput";
+import React, { Component } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import uuid from 'uuid';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ToDoList from './components/ToDoList';
+import ToDoInput from './components/ToDoInput';
 
 export default class App extends Component {
   state = {
     items: [],
     id: uuid(),
-    item: "",
+    item: '',
     editItem: false
   };
   handleChange = e => {
@@ -26,7 +26,7 @@ export default class App extends Component {
     };
     this.setState({
       items: [...this.state.items, newItem],
-      item: "",
+      item: '',
       id: uuid(),
       editItem: false
     });
@@ -46,15 +46,22 @@ export default class App extends Component {
   };
 
   handleEdit = id => {
-    console.log(`edit ${id}`);
+    const filteredItems = this.state.items.filter(item => item.id !== id);
+    const selectedItem = this.state.items.find(item => item.id === id);
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      id: id,
+      editItem: true
+    });
   };
   render() {
     return (
       <>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-10 mx-auto col-md-8 mt-4'>
-              <h3 className='text-capitalize text-center'>Todo Input</h3>
+        <div className="container">
+          <div className="row">
+            <div className="col-10 mx-auto col-md-8 mt-4">
+              <h3 className="text-capitalize text-center">Todo Input</h3>
               <ToDoInput
                 item={this.state.item}
                 handleChange={this.handleChange}
