@@ -24,23 +24,25 @@ export default class App extends Component {
       id: this.state.id,
       title: this.state.item
     };
-    this.setState(
-      {
-        items: [...this.state.items, newItem],
-        item: "",
-        id: uuid(),
-        editItem: false
-      },
-      () => console.log(this.state.items)
-    );
+    this.setState({
+      items: [...this.state.items, newItem],
+      item: "",
+      id: uuid(),
+      editItem: false
+    });
   };
 
   clearList = () => {
-    console.log("clear list");
+    this.setState({
+      items: []
+    });
   };
 
   handleDelete = id => {
-    console.log(`handle edit ${id}`);
+    const filteredItems = this.state.items.filter(item => item.id !== id);
+    this.setState({
+      items: filteredItems
+    });
   };
 
   handleEdit = id => {
